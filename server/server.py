@@ -83,7 +83,7 @@ def calculation_function(L_ID,lat,lng):
 				parameter_lng1 = float(lng)
 				
 				#selecting the signal from the list based on the NAS value
-				L_spltvariable =  g_list1_[dic_ID[L_ID][1]-1]
+				L_spltvariable =  g_list1[dic_ID[L_ID][1]-1]
 				L_spltvariable = L_spltvariable.split(' ')
 				L_lat2 = L_spltvariable[0]
 				L_lng2 = L_spltvariable[1]
