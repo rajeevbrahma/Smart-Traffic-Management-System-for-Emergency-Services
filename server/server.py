@@ -151,7 +151,7 @@ def clearing_function():
 				client_min = int(client.strftime("%M"))
 				client_sec = int(client.strftime("%S"))
 				
-				client_day = int(client.strftime("%d")) # testing for day client removal
+				client_day = int(client.strftime("%d")) 
 				
 				
 				present_time = datetime.datetime.now(pytz.timezone('UTC'))
@@ -159,7 +159,7 @@ def clearing_function():
 				present_min = int(present_time.strftime("%M"))
 				present_sec = int(present_time.strftime("%S"))
 				
-				present_day = int(present_time.strftime("%d")) # testing for day client removal
+				present_day = int(present_time.strftime("%d")) 
 				
 				presenttime = (present_hour *60*60) + (present_min*60) + (present_sec)
 				clienttime = (client_hour *60*60) + (client_min*60) + (client_sec)
@@ -186,7 +186,7 @@ Description		:
 Parameters 		:	message - status,lattitude,longitude from client,channel-channel name
 ***************************************************************************'''
 def callback(message,channel):
-	# print message
+	print message
 	UUID = message['ID']
 	L_count = 0
 
