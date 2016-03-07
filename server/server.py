@@ -34,6 +34,12 @@ dic_tme = []
 g_process_list = []
 # bff29478-089c-4dff-8895-883580885661
 
+# List of the lattitude and longitude values of the signals
+g_list1 = ["37.786188 -122.440033","37.787237 -122.431801",
+				"37.785359 -122.424704","37.778739 -122.423349",
+				"37.776381 -122.419514","37.772811 -122.412835",
+		   		"37.765782 -122.407557"]
+
 '''****************************************************************************************
 Function Name 	:	error
 Description		:	If error in the channel, prints the error
@@ -69,13 +75,7 @@ Description		:	Initalize the pubnub keys and Starts Subscribing
 Parameters 		:	L_ID(uuid of the client),lat,lng(lattitude and longitude of the client)
 ***************************************************************************'''
 def calculation_function(L_ID,lat,lng):
-  	# List of the lattitude and longitude values of the signals
-  	L_list1 = ["37.786188 -122.440033","37.787237 -122.431801",
-				"37.785359 -122.424704","37.778739 -122.423349",
-				"37.776381 -122.419514","37.772811 -122.412835",
-		   		"37.765782 -122.407557"]
-
-	L_ID =  str(L_ID)
+  	L_ID =  str(L_ID)
 	try:
 		if (dic_ID != 0):
 			if (dic_ID[L_ID][1]<=7):
@@ -83,7 +83,7 @@ def calculation_function(L_ID,lat,lng):
 				parameter_lng1 = float(lng)
 				
 				#selecting the signal from the list based on the NAS value
-				L_spltvariable =  L_list1[dic_ID[L_ID][1]-1]
+				L_spltvariable =  g_list1_[dic_ID[L_ID][1]-1]
 				L_spltvariable = L_spltvariable.split(' ')
 				L_lat2 = L_spltvariable[0]
 				L_lng2 = L_spltvariable[1]
