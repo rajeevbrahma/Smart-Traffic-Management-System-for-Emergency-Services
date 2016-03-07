@@ -23,4 +23,5 @@ def bearng(l_lat1,l_lng1,l_lat2,l_lng2):
 	l_brng = math.degrees(l_brng)
 	l_brng = (l_brng +360)%360
 	l_brng = (360-l_brng)
+	return l_brng
 	

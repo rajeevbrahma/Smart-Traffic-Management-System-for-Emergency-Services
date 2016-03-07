@@ -97,11 +97,9 @@ def calculation_function(L_ID,lat,lng):
 				#print L_distance		
 				# Quadrant change
 				
-				print "beforequdrantchange",L_bearing
 				if (L_bearing >180 and L_bearing <= 360):                  
 					L_bearing = str(180-L_bearing)
 				L_brng2 = str (L_bearing)
-				print "after Quadrant change",L_brng2
 				
 				L_temp1 = dic_ID[L_ID][2]
 				L_temp1 = str(L_temp1)
