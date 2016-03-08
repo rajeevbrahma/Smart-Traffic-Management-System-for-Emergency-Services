@@ -12,7 +12,10 @@ from traffic_calc.bearing import bearng
 import time
 import datetime 
 import pytz      
-from termcolor import colored 
+from termcolor import colored
+from colorama import init 
+
+
 
 # publish and subscribe keys
 pub_key="pub-c-1394c3d6-4b89-443e-946a-f1ca36bedcae"       
@@ -35,7 +38,7 @@ g_process_list = []
 # bff29478-089c-4dff-8895-883580885661
 
 # List of the lattitude and longitude values of the signals
-g_list1 = ["37.786188 -122.440033","37.787237 -122.431801",
+g_latlonglist = ["37.786188 -122.440033","37.787237 -122.431801",
 				"37.785359 -122.424704","37.778739 -122.423349",
 				"37.776381 -122.419514","37.772811 -122.412835",
 		   		"37.765782 -122.407557"]
@@ -79,35 +82,37 @@ def calculation_function(L_ID,lat,lng):
 	try:
 		if (dic_ID != 0):
 			if (dic_ID[L_ID][1]<=7):
-				parameter_lat1 = float(lat)
-				parameter_lng1 = float(lng)
+				parameter_lat = float(lat)
+				parameter_lng = float(lng)
 				
 				#selecting the signal from the list based on the NAS value
-				L_spltvariable =  g_list1[dic_ID[L_ID][1]-1]
+				L_spltvariable =  g_latlonglist[dic_ID[L_ID][1]-1]
 				L_spltvariable = L_spltvariable.split(' ')
-				L_lat2 = L_spltvariable[0]
-				L_lng2 = L_spltvariable[1]
+				L_lat = L_spltvariable[0]
+				L_lng = L_spltvariable[1]
 				
 				# calculating the distancse between the vehicle and the approaching signal
-				L_distance = dis_calc(parameter_lat1,parameter_lng1,L_lat2,L_lng2) 
+				L_distance = dis_calc(parameter_lat,parameter_lng,L_lat,L_lng) 
 						
 				# calculating the angle between the vehicle and the approaching signal						
-				L_bearing  = bearng(parameter_lat1,parameter_lng1,L_lat2,L_lng2)   
+				L_bearing  = bearng(parameter_lat,parameter_lng,L_lat,L_lng)   
 						
-				#print L_distance		
-				# Quadrant change
-				
+				#print L_distance
+						
+				# Quadrant change				
 				if (L_bearing >180 and L_bearing <= 360):                  
 					L_bearing = str(180-L_bearing)
-				L_brng2 = str (L_bearing)
+				L_brng = str (L_bearing)
 				
-				L_temp1 = dic_ID[L_ID][2]
-				L_temp1 = str(L_temp1)
-				L_temp2  = L_brng2
-				L_temp2 = str(L_temp2)
+				# PASA value and the present bearing value
+				L_PASAbearingval = str(dic_ID[L_ID][2])
+				L_Presentbearingval = str(L_brng)
+
+
+				
 				
 				# checking for the signal crossover  
-				if(L_temp1[0] != (L_temp2[0])):	                              
+				if(L_PASAbearingval[0] != (L_Presentbearingval[0])):	                              
 					if (dic_ID[L_ID][3] == False):	
 						# sending vehicle crossed message to the respective client
 						pubnub.publish(channel = dic_ID[L_ID][0] ,message = {"signal_type":"withdraw","sig_num":dic_ID[L_ID][1]-1},error=error)
@@ -125,7 +130,7 @@ def calculation_function(L_ID,lat,lng):
 						print colored("server sent green signal message to %s for the signal %d " %(L_ID,dic_ID[L_ID][1]),'white','on_magenta',attrs=['bold'])
 						
 						# updating the PASA	
-						dic_ID[L_ID][2]= L_brng2
+						dic_ID[L_ID][2]= L_brng
 						# setting the flag 	
 						dic_ID[L_ID][3] = False
 			else:
@@ -180,7 +185,8 @@ def clearing_function():
 
 '''***************************************************************************
 Function Name 	:	callback
-Description		:	 
+Description		:	Function which is called for every update in lat&long, and resposible for the handling the clients
+					Creation of new clients and handling the existing clients. 
 Parameters 		:	message - status,lattitude,longitude from client,channel-channel name
 ***************************************************************************'''
 def callback(message,channel):
@@ -255,6 +261,9 @@ Parameters 		:	None
 ****************************************************************************************'''
 if __name__ == "__main__":
 	pub_Init()
+	
+	# use Colorama to make Termcolor work on Windows too
+	init()
 	
 #End of the Script 
 ##*****************************************************************************************************##
