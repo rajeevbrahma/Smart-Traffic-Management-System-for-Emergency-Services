@@ -171,11 +171,11 @@ def clearing_function():
 				time_difference = time_difference/60
 				try:
 					if (time_difference >= 2 or (client_day != present_day)):
-						L_ID = g_process_list[i+1]
+						L_ID = g_process_list[i]
 						print colored("The Expired client id is %s"%(L_ID),'red','on_white',attrs=['bold'])
 						del dic_ID[L_ID]
 						del dic_tme[i]
-						del g_process_list[i+1]
+						del g_process_list[i]
 						print colored("At the time of new client entry stats ---> \n\nDictionary of each clients necessary data for calculation: %s \n\nTimestamp value list of each client : %s \n\nUUID number of the client: %s \n\nLength of Timestamp list: %s "%(dic_ID,dic_tme,g_process_list,len(dic_tme)),'yellow','on_blue',attrs=['bold'])
 						break
 				except Exception as clearinException:
