@@ -2,6 +2,7 @@ pubnub==3.7.3
 pytz
 datetime
 termcolor
+colorama
 
 
 
