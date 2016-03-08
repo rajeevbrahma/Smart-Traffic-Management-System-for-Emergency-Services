@@ -170,7 +170,7 @@ def clearing_function():
 				time_difference =  (presenttime-clienttime)
 				time_difference = time_difference/60
 				try:
-					if (time_difference >= 2 or (client_day != present_day)):
+					if (time_difference >= 30 or (client_day != present_day)):
 						L_ID = g_process_list[i]
 						print colored("The Expired client id is %s"%(L_ID),'red','on_white',attrs=['bold'])
 						del dic_ID[L_ID]
