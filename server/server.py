@@ -13,7 +13,7 @@ import time
 import datetime 
 import pytz      
 from termcolor import colored
-from colorama import init 
+# from colorama import init 
 
 
 
@@ -263,7 +263,7 @@ if __name__ == "__main__":
 	pub_Init()
 	
 	# use Colorama to make Termcolor work on Windows too
-	init()
+	# init()
 	
 #End of the Script 
 ##*****************************************************************************************************##
