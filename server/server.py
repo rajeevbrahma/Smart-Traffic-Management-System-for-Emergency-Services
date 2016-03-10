@@ -42,6 +42,8 @@ g_latlonglist = ["37.786188 -122.440033","37.787237 -122.431801",
 				"37.785359 -122.424704","37.778739 -122.423349",
 				"37.776381 -122.419514","37.772811 -122.412835",
 		   		"37.765782 -122.407557"]
+# List of the signal names
+signal_name = ["Divisadero Street","Webster Street","Gough Street","Fulton Street","Fell Street","Folsom Street","Sixteenth Street"]
 
 '''****************************************************************************************
 Function Name 	:	error
@@ -117,7 +119,7 @@ def calculation_function(L_ID,lat,lng):
 						# sending vehicle crossed message to the respective client
 						pubnub.publish(channel = dic_ID[L_ID][0] ,message = {"signal_type":"withdraw","sig_num":dic_ID[L_ID][1]-1},error=error)
 						
-						print colored("server sent clearance message to %s for the signal %d " %(L_ID,dic_ID[L_ID][1]),'white','on_magenta',attrs=['bold'])
+						print colored("TMS sent normal operation mode command to signal %s " %(signal_name[dic_ID[L_ID][1]]),'white','on_magenta',attrs=['bold'])
 						dic_ID[L_ID][1] = dic_ID[L_ID][1]+1	
 						dic_ID[L_ID][3] = True			
 				
@@ -127,7 +129,7 @@ def calculation_function(L_ID,lat,lng):
 						# sending vehicle approaching message to the respective client
 						pubnub.publish(channel=dic_ID[L_ID][0] ,message = {"signal_type":"green","sig_num":dic_ID[L_ID][1]-1},error=error)
 						
-						print colored("server sent green signal message to %s for the signal %d " %(L_ID,dic_ID[L_ID][1]),'white','on_magenta',attrs=['bold'])
+						print colored("TMS sent green display mode command to signal %s " %(L_ID,dic_ID[L_ID][1]),'white','on_magenta',attrs=['bold'])
 						
 						# updating the PASA	
 						dic_ID[L_ID][2]= L_brng
@@ -190,7 +192,7 @@ Description		:	Function which is called for every update in lat&long, and respos
 Parameters 		:	message - status,lattitude,longitude from client,channel-channel name
 ***************************************************************************'''
 def callback(message,channel):
-	print message
+	# print message
 	UUID = message['ID']
 	L_count = 0
 
