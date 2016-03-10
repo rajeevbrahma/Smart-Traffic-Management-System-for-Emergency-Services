@@ -119,7 +119,7 @@ def calculation_function(L_ID,lat,lng):
 						# sending vehicle crossed message to the respective client
 						pubnub.publish(channel = dic_ID[L_ID][0] ,message = {"signal_type":"withdraw","sig_num":dic_ID[L_ID][1]-1},error=error)
 						
-						print colored("TMS sent normal operation mode command to signal %s " %(signal_name[dic_ID[L_ID][1]]),'white','on_magenta',attrs=['bold'])
+						print colored("TMS sent normal operation mode command to signal %s " %(signal_name[dic_ID[L_ID][1]-1]),'white','on_magenta',attrs=['bold'])
 						dic_ID[L_ID][1] = dic_ID[L_ID][1]+1	
 						dic_ID[L_ID][3] = True			
 				
@@ -129,7 +129,7 @@ def calculation_function(L_ID,lat,lng):
 						# sending vehicle approaching message to the respective client
 						pubnub.publish(channel=dic_ID[L_ID][0] ,message = {"signal_type":"green","sig_num":dic_ID[L_ID][1]-1},error=error)
 						
-						print colored("TMS sent green display mode command to signal %s " %(L_ID,dic_ID[L_ID][1]),'white','on_magenta',attrs=['bold'])
+						print colored("TMS sent green display mode command to signal %s " %(signal_name[dic_ID[L_ID][1]-1]),'white','on_magenta',attrs=['bold'])
 						
 						# updating the PASA	
 						dic_ID[L_ID][2]= L_brng
